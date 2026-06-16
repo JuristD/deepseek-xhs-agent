@@ -66,6 +66,17 @@ playwright install chromium
 ```text
 DEEPSEEK_API_KEY=你的DeepSeek API密钥
 ```
+📁 用户配置完成后的完整目录结构
+my_agent/
+├── skill_runner.py          # 主执行器（核心）
+├── requirements.txt         # Python 依赖
+├── .env                     # 用户自己创建，填入 DEEPSEEK_API_KEY=...
+├── .env.example             # 配置示例（可保留）
+└── skills/
+    └── Auto-Redbook-Skills/ # 用户自行克隆原项目
+        ├── SKILL.md
+        └── scripts/
+⚠️ 注意：Auto-Redbook-Skills 同样需要按照其项目要求完成 cookie 配置（用于小红书发布鉴权），就如同本项目需要配置 DEEPSEEK_API_KEY 一样，两者缺一不可。
 
 ### 5. 运行
 
