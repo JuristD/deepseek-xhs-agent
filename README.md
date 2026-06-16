@@ -39,7 +39,7 @@
 ### 1. 克隆与安装
 
 ```bash
-git clone https://github.com/你的用户名/deepseek-xhs-agent.git
+git clone https://github.com/JuristD/deepseek-xhs-agent.git
 cd deepseek-xhs-agent
 pip install openai python-dotenv pyyaml
 ```
