@@ -37,10 +37,12 @@ my_agent/
 1. 克隆仓库与安装依赖
 
 # 克隆本项目
+ ```bash
 git clone https://github.com/JuristD/deepseek-xhs-agent.git
 cd deepseek-xhs-agent
 
 # 安装运行所需依赖
+ ```bash
 pip install openai python-dotenv tavily-python Pillow
 
 2. 配置环境变量
@@ -57,6 +59,7 @@ TAVILY_API_KEY=your_tavily_api_key
 3. 运行控制台
 在项目根目录下打开终端，执行：
 
+ ```bash
 python skill_runner.py
 
 ---
@@ -83,8 +86,8 @@ python skill_runner.py
 
 ## 🎨 渲染引擎切换
 
-• 默认渲染：程序默认采用新版 Python 图像渲染引擎 (render_xhs_v2.py)。
-• 经典渲染：如果您在输入的主题中附带 旧版（如：如何自律 旧版），程序会自动调用经典版渲染脚本 (render_xhs.py)。
+• 默认渲染：程序默认采用新版 Python 图像渲染引擎 (`render_xhs_v2.py`)。
+• 经典渲染：如果您在输入的主题中附带 旧版（如：如何自律 旧版），程序会自动调用经典版渲染脚本 (`render_xhs.py`)。
 
 ---
 
