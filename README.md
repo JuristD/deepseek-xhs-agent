@@ -1,162 +1,94 @@
-# deepseek-xhs-agent
-> 基于 DeepSeek API 的智能小红书内容创作与发布工具，通过自然语言对话驱动完整的「文案生成 → 图片渲染 → 自动发布」工作流。
+# DeepSeek 小红书自动化代理 (DeepSeek XHS Agent) 🚀
+
+这是一个基于 **DeepSeek 大模型**、**Tavily 深度检索** 与 **纯 Python 图像渲染** 构建的小红书全自动图文创作与发布代理。
+
+本项目旨在帮助创作者实现“一句话生成小红书爆款文案 -> 自动化卡片排版渲染 -> 一键发布/私密保存”的完整闭环工作流。
 
 ---
 
-## ✨ 项目简介
+## 🌟 核心特色
 
-本项目是 [Auto-Redbook-Skills](https://github.com/comeonzhj/Auto-Redbook-Skills) 的智能化上层封装。原项目提供了两大核心能力：
-
-- **渲染能力**：将 Markdown 文案渲染为小红书风格的卡片图片（支持多主题、多分页模式）
-- **发布能力**：将渲染后的图片自动发布到小红书（支持私密/公开、定时发布）
-
-但原项目需要用户手动编写 Markdown 文案，并手动执行渲染和发布命令。
-
-**本项目在此基础上引入 DeepSeek 作为「大脑」**：你只需要用一句话描述主题，AI 就会自动完成文案创作、保存 Markdown、调用渲染和发布脚本的全流程。整个过程完全由对话驱动，无需手动编写或执行任何命令。
-
-| 组件 | 职责 |
-| :--- | :--- |
-| **Auto-Redbook-Skills** | 渲染引擎 + 发布引擎（把 Markdown 变成图片并发布） |
-| **本项目** | AI 大脑（替你写 Markdown，再自动调用渲染和发布引擎） |
+- ⚡ **纯 Python 驱动**：彻底摆脱对 Node.js/NPM 的环境依赖。无论是文案构思、图片排版还是发布，全部由纯 Python 编写，开箱即用。
+- ✍️ **小红书爆款美学**：内置专门针对小红书调性优化的系统提示词，自动生成高诱惑力、强情绪、高点击率的标题，严格遵守封面字数规范。
+- 🔍 **双重深度联网搜索**：集成 Tavily Advanced 深度搜索与 AI 智能信息预整合。写时效性、科技、新闻等主题时，AI 会自主查阅全网最新资讯，杜绝幻觉。
+- 🧹 **智能格式过滤净化**：主程序内置自动化清洗机制，自动剔除大模型可能输出的废话、联网搜索报错以及多余的难看“标签卡片”，确保渲染产物精美匀称。
+- 📁 **多模块独立管理**：写作模块与发布模块的配置文件单独隔离，互不干扰，支持极高自由度的扩展。
 
 ---
 
-## 🎯 核心功能
-
-| 功能 | 说明 |
-| :--- | :--- |
-| 🤖 **一句话驱动全流程** | 输入主题，DeepSeek 自动完成「写文案 → 存文件 → 渲染 → 发布」全部步骤 |
-| 📝 **严格排版控制** | 标题 ≤18字、卡片字数适中、禁止括号、进度条限制等硬性规则 |
-| 🎨 **双渲染器支持** | 默认使用新版 `render_xhs_v2.py`（8种主题 + 4种分页模式），可指定旧版 |
-| 📁 **产物自动隔离** | 每次运行自动创建 `YYYY-MM-DD_主题` 独立文件夹，不再污染根目录 |
-| 🔒 **默认私密发布** | 默认私密发布，避免错误内容公开；用户明确要求时再加 `--public` |
-| 🛠️ **技能包自动发现** | 自动扫描 `./skills/` 目录，发现并加载标准技能包（含 render 和 publish 脚本） |
-
----
-
-## 🚀 快速开始
-
-### 1. 克隆与安装
-
-```bash
-git clone https://github.com/JuristD/deepseek-xhs-agent.git
-cd deepseek-xhs-agent
-pip install openai python-dotenv pyyaml
-```
-
-### 2. 准备技能包（含渲染和发布脚本）
-
-本项目依赖 Auto-Redbook-Skills 作为后端引擎，需要将它的完整技能包（包含 `scripts/render_xhs_v2.py` 和 `scripts/publish_xhs.py`）放入 `skills/` 目录：
-
-```bash
-git clone https://github.com/comeonzhj/Auto-Redbook-Skills.git skills/小红书写手
-```
-
-### 3. 安装 Playwright（渲染依赖）
-
-```bash
-pip install playwright
-playwright install chromium
-```
-
-### 4. 配置 API 密钥
-
-在项目根目录创建 `.env` 文件：
+## 📂 项目结构
 
 ```text
-DEEPSEEK_API_KEY=你的DeepSeek API密钥
-```
-## 📁 用户配置完成后的完整目录结构
-
-```
 my_agent/
-├── skill_runner.py          # 主执行器（核心）
-├── requirements.txt         # Python 依赖
-├── .env                     # 用户自己创建，填入 DEEPSEEK_API_KEY=...
-├── .env.example             # 配置示例（可保留）
-└── skills/
-    └── 小红书写手/
-        └── Auto-Redbook-Skills/ # 用户自行克隆原项目
-            ├── SKILL.md
-            └── scripts/
-```
+  ├── skill_runner.py          # 代理主控制台（主入口）
+  ├── 草稿.md                  # 用户本地草稿（供直发/扩写使用）
+  └── skills/
+      ├── .env                 # 配置文件（存放 DeepSeek/Tavily 密钥，需自行创建）
+      ├── write_xhs.py         # 写作技能模块
+      └── scripts/
+          ├── render_xhs_v2.py # 默认渲染引擎（Python 新版卡片渲染）
+          ├── render_xhs.py    # 经典渲染引擎（Python 经典版卡片渲染）
+          └── publish_xhs.py   # 小红书自动化发布脚本
+## 🛠️ 快速开始
+1. 克隆仓库与安装依赖
 
-> ⚠️ **注意**：`Auto-Redbook-Skills` 同样需要按照其项目要求完成 cookie 配置（用于小红书发布鉴权），就如同本项目需要配置 `DEEPSEEK_API_KEY` 一样，两者缺一不可。
+# 克隆本项目
+git clone https://github.com/JuristD/deepseek-xhs-agent.git
+cd deepseek-xhs-agent
 
-## 5. 运行
+# 安装运行所需依赖
+pip install openai python-dotenv tavily-python Pillow
 
-```bash
+2. 配置环境变量
+在 skills/ 目录下创建 .env 文件（或将 .env.example 重命名为 .env），填入您的密钥：
+
+# 必填：DeepSeek API 密钥
+DEEPSEEK_API_KEY=your_deepseek_api_key
+
+# 选填：Tavily 联网搜索密钥（如不配置，大模型将基于已有知识库进行常规创作）
+TAVILY_API_KEY=your_tavily_api_key
+
+# 小红书发布所需的其他参数（如 Cookie）在此继续配置...
+
+3. 运行控制台
+在项目根目录下打开终端，执行：
+
 python skill_runner.py
-```
 
----
+## 📌 使用说明
+启动控制台后，共有三种核心工作流供您选择：
 
-## 💬 使用示例
+工作流 A：写作 + 渲染 + 自动化发布（默认模式）
+直接在控制台输入您想要创作的主题。例如：
+• 搜寻 2026 年最新科技趋势 （会触发联网搜索）
+• 如何做一盘完美的西红柿炒鸡蛋 （常规知识写作）
 
-启动后，直接输入需求：
+工作流 B：草稿直发模式
+如果您已经在根目录的 草稿.md 中写好了文案：
+• 直接在控制台输入：草稿
+• 代理会读取 草稿.md，自动渲染图片并启动发布。
 
-```
-🧑 您: 使用小红书写手技能，以『AI立法时代正式开启』为主题写一篇小红书帖子并发布
-```
+工作流 B2：基于草稿扩写模式
+如果您写好了一份大纲或草稿，想让大模型帮您丰满：
+• 在控制台输入：以草稿为基础扩写一份关于自律的主题
+• 代理会结合草稿正文与您的补充指令，重新构思文案并执行后续步骤。
 
-AI 会自动完成：
+## 🎨 渲染引擎切换
 
-1. 生成包含 YAML frontmatter 的 Markdown 文案（确保封面图正常生成）
-2. 保存到独立子文件夹（如 `2026-06-16_AI立法时代/`）
-3. 默认使用新版渲染器生成封面和卡片图片
-4. 调用发布脚本私密发布到小红书
+• 默认渲染：程序默认采用新版 Python 图像渲染引擎 (render_xhs_v2.py)。
+• 经典渲染：如果您在输入的主题中附带 旧版（如：如何自律 旧版），程序会自动调用经典版渲染脚本 (render_xhs.py)。
 
-**指定旧版渲染器：**
+## 🔒 隐私与免责声明
+• 请妥善保管您的 .env 配置文件，切勿将其上传至公开 GitHub 仓库。
+• 本项目中的自动发布脚本仅供学习与个人效率提升使用，请遵守小红书社区的相关运营规范。
 
-```
-🧑 您: 用初代渲染器，以『AI立法时代』为主题写一篇帖子
-```
+## 🤝 致谢与开源致敬 (Credits)
 
-**公开发布：**
+本项目的部分核心底层技能模块基于以下优秀开源项目的成果进行深度集成，特此向原作者们致以最诚挚的谢意：
 
-```
-🧑 您: 公开发布，以『AI立法时代』为主题写一篇帖子
-```
+- **图片排版与渲染模块**（`render_xhs_v2.py` / `render_xhs.py`）：源自原作者 [@comeonzhj](https://github.com/comeonzhj) 的 [Auto-Redbook-Skills
+](https://github.com/comeonzhj/Auto-Redbook-Skills) 项目。其高精度的卡片像素级测量和智能排版为本项目提供了坚实的视觉底座。
+- **小红书自动发布模块**（`publish_xhs.py`）：也源自前述作者同一项目。
+- **代理控制台、深度检索与数据清洗**（`skill_runner.py` / `write_xhs.py`）：由本项目作者独立开发。我们对上述底层技能进行了纯 Python 化无缝整合，移除了繁琐的 Node 依赖，并加入自动防废话/防警告清洗、高事实性多重深度检索，实现了一键式智能代理。
 
----
-
-## 📋 文案写作铁律
-
-> AI 自动遵守以下规则，无需手动干预。
-
-| 规则 | 说明 |
-| :--- | :--- |
-| **标题字数** | 封面主标题 ≤15字，副标题 ≤10字，发布标题 ≤18字 |
-| **YAML frontmatter** | 文件开头必须包含 `emoji`、`title`、`subtitle` 元数据 |
-| **卡片排版** | 每张卡片 3~4 行带 emoji 的列表项，可选 `> 金句` 高亮块 |
-| **进度条** | 最多 5 个方块（`█████ 80%`），严禁长条 |
-| **禁止事项** | 严禁中英文括号，严禁底部整行装饰 emoji |
-| **干货感** | 像行业专家分享，严禁口语化表达 |
-
----
-
-## 🙏 致谢与渊源
-
-本项目深度依赖 **[Auto-Redbook-Skills](https://github.com/comeonzhj/Auto-Redbook-Skills)** 提供的渲染和发布能力，原项目采用 MIT 许可证。
-
-- **原项目作者：** @comeonzhj
-- **本项目的创新：** 引入 DeepSeek API 作为 AI 大脑，实现从「写 Markdown → 渲染 → 发布」的全流程自动化，用户仅需一句自然语言即可完成
-
-感谢原作者的出色工作！
-
----
-
-## 📌 相关链接
-
-- [Auto-Redbook-Skills（原项目）](https://github.com/comeonzhj/Auto-Redbook-Skills)
-- [DeepSeek API 文档](https://platform.deepseek.com/usage)
-
----
-
-## 📄 许可证
-
-本项目采用 [MIT 许可证](LICENSE)。
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
+*（声明：若相关底层模块的原作者对本项目中技能的集成方式、版权声明有任何疑问，欢迎随时联系，我们将第一时间配合调整。）*
