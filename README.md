@@ -37,13 +37,17 @@ my_agent/
 1. 克隆仓库与安装依赖
 
 # 克隆本项目
+
  ```bash
 git clone https://github.com/JuristD/deepseek-xhs-agent.git
 cd deepseek-xhs-agent
 
+```
 # 安装运行所需依赖
+
  ```bash
 pip install openai python-dotenv tavily-python Pillow
+```
 
 2. 配置环境变量
 在 skills/ 目录下创建 .env 文件（或将 .env.example 重命名为 .env），填入您的密钥：
@@ -62,6 +66,7 @@ TAVILY_API_KEY=your_tavily_api_key
  ```bash
 python skill_runner.py
 
+```
 ---
 
 ## 📌 使用说明
