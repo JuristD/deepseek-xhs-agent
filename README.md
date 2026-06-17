@@ -29,7 +29,7 @@ my_agent/
           ├── render_xhs_v2.py # 默认渲染引擎（Python 新版卡片渲染）
           ├── render_xhs.py    # 经典渲染引擎（Python 经典版卡片渲染）
           └── publish_xhs.py   # 小红书自动化发布脚本
-
+```
 ---
 
 ## 🛠️ 快速开始
