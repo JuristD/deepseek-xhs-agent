@@ -62,7 +62,7 @@ DEEPSEEK_API_KEY=your_deepseek_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
-### 小红书发布所需的其他参数（如 Cookie）在此继续配置...
+#### 小红书发布所需的其他参数（如 Cookie）在此继续配置...
 
 ### 3. 运行控制台
 在项目根目录下打开终端，执行：
