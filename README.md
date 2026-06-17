@@ -29,7 +29,11 @@ my_agent/
           ├── render_xhs_v2.py # 默认渲染引擎（Python 新版卡片渲染）
           ├── render_xhs.py    # 经典渲染引擎（Python 经典版卡片渲染）
           └── publish_xhs.py   # 小红书自动化发布脚本
+
 ```
+
+
+#### 注意:仅展示主要项目结构,请直接下载安装包`DeepSeek XHS Agent`zip,完成个人 `Cookie`,以及`API`密钥配置. 请同时提前安装`python`.
 ---
 
 ## 🛠️ 快速开始
@@ -63,6 +67,10 @@ TAVILY_API_KEY=your_tavily_api_key
 ```
 
 #### 小红书发布所需的其他参数（如 Cookie）在此继续配置...
+
+```bash
+XHS_COOKIE="你的Cookie"
+```
 
 ### 3. 运行控制台
 在项目根目录下打开终端，执行：
@@ -109,9 +117,10 @@ python skill_runner.py
 
 本项目的部分核心底层技能模块基于以下优秀开源项目的成果进行深度集成，特此向原作者们致以最诚挚的谢意：
 
-- 图片排版与渲染模块（`render_xhs_v2.py` / `render_xhs.py`）：源自原作者 [@comeonzhj](https://github.com/comeonzhj) 的 [Auto-Redbook-Skills
+- 图片排版与渲染模块（包括`render_xhs_v2.py` / `render_xhs.py`等）：源自原作者 [@comeonzhj](https://github.com/comeonzhj) 的 [Auto-Redbook-Skills
 ](https://github.com/comeonzhj/Auto-Redbook-Skills) 项目。其高精度的卡片像素级测量和智能排版为本项目提供了坚实的视觉底座。
-- 小红书自动发布模块（`publish_xhs.py`）：也源自前述作者同一项目。
+
+- 小红书自动发布模块（包括`publish_xhs.py`等）：也源自前述作者同一项目。
   
 - 代理控制台、深度检索与数据清洗（`skill_runner.py` / `write_xhs.py`）：由本项目作者独立开发。我们对上述底层技能进行了纯 Python 化无缝整合，移除了繁琐的 Node 依赖，并加入自动防废话/防警告清洗、高事实性多重深度检索，实现了一键式智能代理。
 
