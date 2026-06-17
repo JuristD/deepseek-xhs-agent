@@ -40,9 +40,8 @@ my_agent/
 ```bash
 git clone https://github.com/JuristD/deepseek-xhs-agent.git
 cd deepseek-xhs-agent
-
 ```
-### 安装运行所需依赖
+#### 安装运行所需依赖
 
  ```bash
 pip install openai python-dotenv tavily-python Pillow
@@ -55,20 +54,21 @@ pip install openai python-dotenv tavily-python Pillow
 
 ```bash
 DEEPSEEK_API_KEY=your_deepseek_api_key
+```
 
 #### 选填：Tavily 联网搜索密钥（如不配置，大模型将基于已有知识库进行常规创作）
 
 ```bash
 TAVILY_API_KEY=your_tavily_api_key
+```
 
 ### 小红书发布所需的其他参数（如 Cookie）在此继续配置...
 
 ### 3. 运行控制台
 在项目根目录下打开终端，执行：
 
- ```bash
+```bash
 python skill_runner.py
-
 ```
 ---
 
