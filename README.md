@@ -35,15 +35,14 @@ my_agent/
 ## 🛠️ 快速开始
 
 1. 克隆仓库与安装依赖
-
-# 克隆本项目
+### 克隆本项目
 
  ```bash
 git clone https://github.com/JuristD/deepseek-xhs-agent.git
 cd deepseek-xhs-agent
 
 ```
-# 安装运行所需依赖
+### 安装运行所需依赖
 
  ```bash
 pip install openai python-dotenv tavily-python Pillow
@@ -52,13 +51,13 @@ pip install openai python-dotenv tavily-python Pillow
 2. 配置环境变量
 在 skills/ 目录下创建 .env 文件（或将 .env.example 重命名为 .env），填入您的密钥：
 
-# 必填：DeepSeek API 密钥
+### 必填：DeepSeek API 密钥
 DEEPSEEK_API_KEY=your_deepseek_api_key
 
-# 选填：Tavily 联网搜索密钥（如不配置，大模型将基于已有知识库进行常规创作）
+### 选填：Tavily 联网搜索密钥（如不配置，大模型将基于已有知识库进行常规创作）
 TAVILY_API_KEY=your_tavily_api_key
 
-# 小红书发布所需的其他参数（如 Cookie）在此继续配置...
+### 小红书发布所需的其他参数（如 Cookie）在此继续配置...
 
 3. 运行控制台
 在项目根目录下打开终端，执行：
